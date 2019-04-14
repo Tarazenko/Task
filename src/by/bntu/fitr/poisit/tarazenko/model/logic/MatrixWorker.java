@@ -2,14 +2,23 @@ package by.bntu.fitr.poisit.tarazenko.model.logic;
 
 import by.bntu.fitr.poisit.tarazenko.model.data.Array;
 import by.bntu.fitr.poisit.tarazenko.model.data.Matrix;
+import by.bntu.fitr.poisit.tarazenko.model.exception.ArrayDimensionException;
+import by.bntu.fitr.poisit.tarazenko.model.exception.InvalidValueException;
+import by.bntu.fitr.poisit.tarazenko.model.exception.MatrixDimensionException;
+import by.bntu.fitr.poisit.tarazenko.model.exception.NullException;
 
 public class MatrixWorker {
 
-    public static int findLowerValueColumnMinComp(Matrix matrix, double value) {
+    private static final String NULL_MATRIX_EXCEPTION_MESSAGE = "Null matrix!";
+
+    public static int findLowerValueColumnMinComp(Matrix matrix, double value)
+            throws MatrixDimensionException, InvalidValueException, NullException, ArrayDimensionException {
+        checkNullMatrix(matrix);
         return findMinPos(findCompInLowerValueColumns(matrix,value));
     }
 
-    public static Array findCompInLowerValueColumns(Matrix matrix, double value) {
+    private static Array findCompInLowerValueColumns(Matrix matrix, double value)
+            throws NullException, InvalidValueException, MatrixDimensionException {
         Array columns = new Array(matrix.getCountColumns());
         for(int i = 0; i < columns.getSize(); i++)
             columns.setElement(i,Double.POSITIVE_INFINITY);
@@ -30,7 +39,7 @@ public class MatrixWorker {
         return columns;
     }
 
-    public static int findMinPos(Array array) {
+    private static int findMinPos(Array array) throws ArrayDimensionException {
         int pos = -1;
         double min = Double.POSITIVE_INFINITY;
         for (int i = 0; i < array.getSize(); i++) {
@@ -40,5 +49,11 @@ public class MatrixWorker {
             }
         }
         return pos;
+    }
+
+    private static void checkNullMatrix(Matrix matrix) throws NullException {
+        if (matrix == null) {
+            throw new NullException(NULL_MATRIX_EXCEPTION_MESSAGE);
+        }
     }
 }

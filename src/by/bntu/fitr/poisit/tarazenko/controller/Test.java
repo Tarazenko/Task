@@ -1,4 +1,4 @@
-package by.bntu.fitr.poisit.tarazenko.controller;
+/*package by.bntu.fitr.poisit.tarazenko.controller;
 
 import by.bntu.fitr.poisit.tarazenko.model.data.Matrix;
 import by.bntu.fitr.poisit.tarazenko.model.logic.MatrixWorker;
@@ -22,4 +22,4 @@ public class Test {
         System.out.println(MatrixWorker.findLowerValueColumnMinComp(matrix,value));
     }
 
-}
+}*/

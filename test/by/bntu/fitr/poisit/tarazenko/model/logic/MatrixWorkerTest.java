@@ -1,6 +1,11 @@
 package by.bntu.fitr.poisit.tarazenko.model.logic;
 
 import by.bntu.fitr.poisit.tarazenko.model.data.Array;
+import by.bntu.fitr.poisit.tarazenko.model.exception.ArrayDimensionException;
+import by.bntu.fitr.poisit.tarazenko.model.exception.InvalidValueException;
+import by.bntu.fitr.poisit.tarazenko.model.exception.MatrixDimensionException;
+import by.bntu.fitr.poisit.tarazenko.model.exception.NullException;
+import org.junit.Assert;
 import org.junit.Test;
 import by.bntu.fitr.poisit.tarazenko.model.data.Matrix;
 
@@ -15,42 +20,37 @@ public class MatrixWorkerTest {
             {4, 1, 0},
             {4, 1, 8},
             {4, 1, 9}});
-    private Matrix matrix3 = new Matrix(null);
+
+    public MatrixWorkerTest()
+            throws InvalidValueException, ArrayDimensionException, NullException, MatrixDimensionException {
+
+    }
+
     @Test
-    public void findLowerValueColumnMinComp() {
+    public void noColumnWithLowerValue()
+            throws InvalidValueException, ArrayDimensionException, NullException, MatrixDimensionException {
         assertEquals(-1, MatrixWorker.findLowerValueColumnMinComp(matrix1,1));
+    }
+    @Test
+    public void firstColumnTest()
+            throws InvalidValueException, ArrayDimensionException, NullException, MatrixDimensionException {
         assertEquals(1, MatrixWorker.findLowerValueColumnMinComp(matrix2,5));
+
+    }
+    @Test
+    public void secondColumnTest()
+            throws InvalidValueException, ArrayDimensionException, NullException, MatrixDimensionException {
         assertEquals(2, MatrixWorker.findLowerValueColumnMinComp(matrix2,10));
-        assertEquals(-1, MatrixWorker.findLowerValueColumnMinComp(matrix3,10));
     }
-
     @Test
-    public void findCompInLowerValueColumns() {
-        Array expected = new Array(new double[]{Double.POSITIVE_INFINITY,
-                Double.POSITIVE_INFINITY,Double.POSITIVE_INFINITY});
-        Array actual = MatrixWorker.findCompInLowerValueColumns(matrix1,1);
-        assertEquals(expected.toString(), actual.toString());
-
-        expected = new Array(new double[]{64,1,0});
-        actual = MatrixWorker.findCompInLowerValueColumns(matrix2,10);
-        assertEquals(expected.toString(), actual.toString());
-
-        expected = new Array(null);
-        actual = MatrixWorker.findCompInLowerValueColumns(matrix3,10);
-        assertEquals(expected.toString(), actual.toString());
-    }
-
-    @Test
-    public void findMinPos() {
-        Array array = new Array(new double[]{Double.POSITIVE_INFINITY,
-                Double.POSITIVE_INFINITY,Double.POSITIVE_INFINITY});
-
-        assertEquals(-1, MatrixWorker.findMinPos(array));
-
-        array = new Array(null);
-        assertEquals(-1, MatrixWorker.findMinPos(array));
-
-        array = new Array(new double[]{60, -1.0, -1.6});
-        assertEquals(2, MatrixWorker.findMinPos(array));
+    public void nullMatrixTest()
+            throws InvalidValueException, ArrayDimensionException, NullException, MatrixDimensionException {
+        try{
+            int result = MatrixWorker.findLowerValueColumnMinComp(null,10);
+            Assert.fail();
+        }catch (NullException thrown){
+            Assert.assertNotEquals("",thrown.getMessage());
+        }
+       // assertEquals(-1, MatrixWorker.findLowerValueColumnMinComp(null,10));
     }
 }
